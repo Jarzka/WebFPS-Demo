@@ -4,7 +4,7 @@ define(function() {
         var textures = {};
 
         var texturesLoadedSum = 0;
-        var allTexturesSum = 2; // TODO HARDCODED
+        var allTexturesSum = 8; // TODO HARDCODED
 
         this.loadTexturesAsynchronously = function () {
             THREE.ImageUtils.loadTexture("media/images/floor.jpg", undefined, function (texture) {
@@ -21,51 +21,48 @@ define(function() {
                 texturesLoadedSum++;
             });
 
-            /*
-            THREE.ImageUtils.loadTexture("media/images/sky_top.jpg", undefined, function (texture) {
-                textures["sky_top"] = texture;
-                texturesLoadedSum++;
-            });
-
-            THREE.ImageUtils.loadTexture("media/images/sky_left.jpg", undefined, function (texture) {
-                textures["sky_left"] = texture;
-                texturesLoadedSum++;
-            });
-
-            THREE.ImageUtils.loadTexture("media/images/sky_front.jpg", undefined, function (texture) {
-                textures["sky_front"] = texture;
-                texturesLoadedSum++;
-            });
-
-            THREE.ImageUtils.loadTexture("media/images/sky_right.jpg", undefined, function (texture) {
-                textures["sky_right"] = texture;
-                texturesLoadedSum++;
-            });
-
-            THREE.ImageUtils.loadTexture("media/images/sky_back.jpg", undefined, function (texture) {
-                textures["sky_back"] = texture;
-                texturesLoadedSum++;
-            });
-
-            THREE.ImageUtils.loadTexture("media/images/sky_base.jpg", undefined, function (texture) {
-                textures["sky_base"] = texture;
-                texturesLoadedSum++;
-            });
-            */
-
-            /*
-            var urlPrefix = "media/images/";
-            var urls = [
-                urlPrefix + "sky_right.jpg", urlPrefix + "sky_left.jpg",
-                urlPrefix + "sky_top.jpg", urlPrefix + "sky_base.jpg",
-                urlPrefix + "sky_front.jpg", urlPrefix + "sky_back.jpg"];
-            textures["skycube"] = THREE.ImageUtils.loadTextureCube(urls);
-            //texturesLoadedSum++;
-            */
-
+            textures["skybox"] = [
+                new THREE.MeshBasicMaterial({
+                    map: THREE.ImageUtils.loadTexture("media/images/sky_right.jpg", undefined, function(texture) {
+                        texturesLoadedSum++;
+                }),
+                    side: THREE.BackSide
+                }),
+                new THREE.MeshBasicMaterial({
+                    map: THREE.ImageUtils.loadTexture("media/images/sky_left.jpg", undefined, function(texture) {
+                        texturesLoadedSum++;
+                    }),
+                    side: THREE.BackSide
+                }),
+                new THREE.MeshBasicMaterial({
+                    map: THREE.ImageUtils.loadTexture("media/images/sky_top.jpg", undefined, function(texture) {
+                        texturesLoadedSum++;
+                    }),
+                    side: THREE.BackSide
+                }),
+                new THREE.MeshBasicMaterial({
+                    map: THREE.ImageUtils.loadTexture("media/images/sky_base.jpg", undefined, function(texture) {
+                        texturesLoadedSum++;
+                    }),
+                    side: THREE.BackSide
+                }),
+                new THREE.MeshBasicMaterial({
+                    map: THREE.ImageUtils.loadTexture("media/images/sky_front.jpg", undefined, function(texture) {
+                        texturesLoadedSum++;
+                    }),
+                    side: THREE.BackSide
+                }),
+                new THREE.MeshBasicMaterial({
+                    map: THREE.ImageUtils.loadTexture("media/images/sky_back.jpg", undefined, function(texture) {
+                        texturesLoadedSum++;
+                    }),
+                    side: THREE.BackSide
+                })
+            ];
         };
 
         this.allTexturesLoaded = function () {
+            console.log(texturesLoadedSum);
             return texturesLoadedSum == allTexturesSum;
         };
 

@@ -37,7 +37,7 @@ define(["map", "player"], function(Map, Player) {
         }
 
         function initializeMap() {
-// TODO Map constructed wrong
+            // TODO Map constructed wrong
             var map = new Map();
             var mapLines = Map.map.split("\n");
             for (var lineIndex = 0; lineIndex < mapLines.length; lineIndex++) {
@@ -73,7 +73,7 @@ define(["map", "player"], function(Map, Player) {
             scene.add(light);
 
             // Fog
-            //scene.fog = new THREE.FogExp2(0x9db3b5, 0.002); / TODO ENABLE WHEN SKYBOX WORKS
+            //scene.fog = new THREE.FogExp2(0x9db3b5, 0.002); // TODO Hides skybox
         }
 
         function initializeWorld() {
@@ -82,37 +82,9 @@ define(["map", "player"], function(Map, Player) {
         }
 
         function initializeSky() {
-            // TODO INITIALIZE IN CONTAINER
-            var materials = [
-                new THREE.MeshBasicMaterial({
-                    map: THREE.ImageUtils.loadTexture("media/images/sky_right.jpg"),
-                    side: THREE.BackSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    map: THREE.ImageUtils.loadTexture("media/images/sky_left.jpg"),
-                    side: THREE.BackSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    map: THREE.ImageUtils.loadTexture("media/images/sky_top.jpg"),
-                    side: THREE.BackSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    map: THREE.ImageUtils.loadTexture("media/images/sky_base.jpg"),
-                    side: THREE.BackSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    map: THREE.ImageUtils.loadTexture("media/images/sky_front.jpg"),
-                    side: THREE.BackSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    map: THREE.ImageUtils.loadTexture("media/images/sky_back.jpg"),
-                    side: THREE.BackSide
-                })
-            ];
-
             sky = new THREE.Mesh(
                 new THREE.CubeGeometry(5000, 5000, 5000),
-                new THREE.MeshFaceMaterial(materials));
+                new THREE.MeshFaceMaterial(gameplayScene.getApplication().getTextureContainer().getTextureByName("skybox")));
             sky.position.x = Map.getWidth() / 2;
             sky.position.z = Map.getHeight() / 2;
             scene.add(sky);
