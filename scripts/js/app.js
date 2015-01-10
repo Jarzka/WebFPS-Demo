@@ -1,11 +1,10 @@
 define(["loading_game_scene", "gameplay_scene", "texture_container"],
     function(LoadingGameScene, GameplayScene, TextureContainer) {
 
-    // TODO Change every module to protoyype
     // TODO Scenet periytyy jostain yhteisestä Scenestä
 
-    return function () {
-        var self = this;
+    var module = function () {
+        var self = this; // "this" might reference to global scope in certain situations.
 
         var textureContainer = new TextureContainer();
         var activeScene;
@@ -38,4 +37,6 @@ define(["loading_game_scene", "gameplay_scene", "texture_container"],
 
         constructor();
     };
+
+    return module;
 });
