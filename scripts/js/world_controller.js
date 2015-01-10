@@ -45,7 +45,6 @@ define(["map", "player"], function(Map, Player) {
                 for (var charIndex = 0; charIndex < line.length; charIndex++) {
                     insertGameplayObjectToWorld(line.charAt(charIndex), charIndex * Map.getTileSize(), 0, lineIndex * Map.getTileSize());
                 }
-
             }
 
             // Floor
