@@ -44,7 +44,7 @@ define(["libraries/THREEx.KeyboardState", "libraries/jquery-1.11.1"], function(T
         }
 
         this.handleInput = function(deltaTime) {
-            // TODO Implement collission detection
+            // TODO Implement collision detection
             var player = worldController.getPlayer();
             var camera = worldController.getCamera();
 
