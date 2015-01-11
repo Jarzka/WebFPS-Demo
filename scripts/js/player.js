@@ -1,6 +1,8 @@
 "use strict";
 
 define(["libraries/three"], function(ThreeJS) {
+    // TODO Inherit from AbstractGameplayObject?
+
     function Player() {
         var self = this;
         var energy = 100;
