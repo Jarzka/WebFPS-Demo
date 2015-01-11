@@ -35,27 +35,34 @@ define(["libraries/THREEx.KeyboardState", "libraries/jquery-1.11.1"], function(T
             var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
             var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
-            worldController.getCamera().rotateY(-movementX / 500); // TODO Hardcoded speed
-            //worldController.getCamera().rotateX(-movementY / 100); // TODO Does not work
+            worldController.getCamera().rotation.y -= movementX / 500; // TODO Hardcoded speed
+            // TODO Horizontal rotation
+            // TODO Rotation is buggy on Chrome?
         }
 
         this.handleInput = function(deltaTime) {
-            // TODO Use the camera angle to walk forward
+            // TODO Implement collission detection
             var player = worldController.getPlayer();
+            var camera = worldController.getCamera();
+
             if (keyboard.pressed("w")) {
-                player.position.z = player.position.z - /*player.getSpeed()*/ 50 * deltaTime;
+                player.position.z = player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime;
+                player.position.x = player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime;
             }
 
             if (keyboard.pressed("a")) {
-                player.position.x = player.position.x - /*player.getSpeed()*/ 50 * deltaTime;
+                player.position.z = player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180) + (90 * Math.PI / 180)) * 120 * deltaTime;
+                player.position.x = player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180) + (90 * Math.PI / 180)) * 120 * deltaTime;
             }
 
             if (keyboard.pressed("s")) {
-                player.position.z = player.position.z + /*player.getSpeed()*/ 50 * deltaTime;
+                player.position.z = player.position.z + Math.sin(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime;
+                player.position.x = player.position.x - Math.cos(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime;
             }
 
             if (keyboard.pressed("d")) {
-                player.position.x = player.position.x + /*player.getSpeed()*/ 50 * deltaTime;
+                player.position.z = player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180) - (90 * Math.PI / 180)) * 120 * deltaTime;
+                player.position.x = player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180) - (90 * Math.PI / 180)) * 120 * deltaTime;
             }
         };
 
