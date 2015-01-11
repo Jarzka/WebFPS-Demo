@@ -1,5 +1,7 @@
 "use strict";
 
+/* Map is used to construct the game world. It is not updated if the world is changed. */
+
 define([], function() {
     var module = function() {
     };
