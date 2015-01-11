@@ -22,7 +22,7 @@ define(["map", "player"], function(Map, Player) {
         function initializePlayer() {
             player = new Player();
             player.position.x = 150;
-            //player.position.y = 70; When physics implemented
+            //player.position.y = 70; TODO When physics implemented
             player.position.y = 5;
             player.position.z = 150;
         }
@@ -33,9 +33,6 @@ define(["map", "player"], function(Map, Player) {
 
         function initializeCamera() {
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-            //camera.position.y = 200;
-            //camera.position.z = 200;
-            //camera.rotation.x = -45 * Math.PI / 180;
         }
 
         function initializeMap() {
@@ -62,6 +59,7 @@ define(["map", "player"], function(Map, Player) {
             scene.add(floor);
 
             // Light
+            // TODO Shadows look strange
             var light = new THREE.DirectionalLight(0xf6e86d, 1);
             // light.shadowCameraVisible = true;
             light.position.x = -Map.getTileSize();
