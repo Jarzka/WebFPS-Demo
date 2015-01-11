@@ -39,7 +39,7 @@ define(["libraries/THREEx.KeyboardState", "libraries/jquery-1.11.1"], function(T
             var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
             worldController.getCamera().rotation.y -= movementX / 500; // TODO Hardcoded speed
-            // TODO Horizontal rotation
+            // TODO Vertical rotation
             // TODO Rotation is buggy on Chrome?
         }
 
