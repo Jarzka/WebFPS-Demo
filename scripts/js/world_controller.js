@@ -1,3 +1,5 @@
+"use strict";
+
 define(["map", "player"], function(Map, Player) {
 
     var module = function (gameplayScene) {
@@ -81,7 +83,7 @@ define(["map", "player"], function(Map, Player) {
         }
 
         function initializeSky() {
-            sky = new THREE.Mesh(
+            var sky = new THREE.Mesh(
                 new THREE.CubeGeometry(5000, 5000, 5000),
                 new THREE.MeshFaceMaterial(gameplayScene.getApplication().getTextureContainer().getTextureByName("skybox")));
             sky.position.x = Map.getWidth() / 2;

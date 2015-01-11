@@ -1,3 +1,5 @@
+"use strict";
+
 define(["libraries/THREEx.KeyboardState", "libraries/jquery-1.11.1"], function(Threex) {
 
     var inputControllerModule = function(worldController) {

@@ -1,3 +1,5 @@
+"use strict";
+
 define(["loading_game_scene", "gameplay_scene", "texture_container"],
     function(LoadingGameScene, GameplayScene, TextureContainer) {
 

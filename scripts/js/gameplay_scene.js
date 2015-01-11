@@ -1,3 +1,5 @@
+"use strict";
+
 define(["libraries/three",
         "libraries/jquery-1.11.1",
         "world_controller",

@@ -1,3 +1,5 @@
+"use strict";
+
 define(["libraries/three"], function(ThreeJS) {
     function Player() {
         var energy = 100;

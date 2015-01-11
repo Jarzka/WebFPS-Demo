@@ -1,3 +1,5 @@
+"use strict";
+
 define(["gameplay_scene"], function(GamePlayScene) {
     var module = function (application) {
         var application = application;
