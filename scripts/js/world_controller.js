@@ -7,6 +7,7 @@ define(["map", "player"], function(Map, Player) {
         var scene;
         var camera;
         var player;
+        var walls = [];
 
         function constructor() {
             initialize();
@@ -102,6 +103,8 @@ define(["map", "player"], function(Map, Player) {
                 wall.castShadow = true;
                 wall.receiveShadow = true;
                 scene.add(wall);
+
+                walls.push(wall);
             }
         }
 
@@ -125,6 +128,23 @@ define(["map", "player"], function(Map, Player) {
 
         this.getPlayer = function() {
             return player;
+        };
+
+        /* Checks if the point collides with at least one world object.
+         */
+        this.onCollision = function(vector3) {
+            for (var i = 0; i < walls.length; i++) {
+                /* TODO Quickly check if the point is inside wall. Later the wall mesh will be wrapped inside wall object and
+                 * separate collision mask and collision detection method will be implemented. */
+                var wall = walls[i];
+                  if (vector3.x >= wall.position.x - (wall.scale.x / 2) && vector3.x <= wall.position.x + (wall.scale.x / 2)
+                && vector3.y >= wall.position.y - (wall.scale.y / 2) && vector3.y <= wall.position.y + (wall.scale.y / 2)
+                && vector3.z <= wall.position.z + (wall.scale.z / 2) && vector3.z >= wall.position.z - (wall.scale.z / 2)) {
+                    return true;
+                }
+            }
+
+            return false;
         };
 
         constructor();

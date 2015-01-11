@@ -4,13 +4,16 @@ define(["libraries/THREEx.KeyboardState", "libraries/jquery-1.11.1"], function(T
 
     var inputControllerModule = function(worldController) {
         var keyboard;
+        var map;
         var worldController = worldController;
+
 
         function constructor() {
             initialize();
         }
 
         function initialize() {
+            map = worldController.getma
             keyboard = new THREEx.KeyboardState();
             $("canvas").click(requestPointerControl); // Request works only from event
         }
@@ -45,24 +48,55 @@ define(["libraries/THREEx.KeyboardState", "libraries/jquery-1.11.1"], function(T
             var player = worldController.getPlayer();
             var camera = worldController.getCamera();
 
+
+            // TODO Get speed from player
+            // TODO Use vectors here
             if (keyboard.pressed("w")) {
-                player.position.z = player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime;
-                player.position.x = player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime;
+                var nextPointW = new THREE.Vector3(
+                    player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime,
+                    player.position.y,
+                    player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime);
+
+                if (!worldController.onCollision(nextPointW)) {
+                    player.position.z = nextPointW.z;
+                    player.position.x = nextPointW.x;
+                }
             }
 
             if (keyboard.pressed("a")) {
-                player.position.z = player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180) + (90 * Math.PI / 180)) * 120 * deltaTime;
-                player.position.x = player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180) + (90 * Math.PI / 180)) * 120 * deltaTime;
+                var nextPointA = new THREE.Vector3(
+                    player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180) + (90 * Math.PI / 180)) * 120 * deltaTime,
+                    player.position.y,
+                    player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180) + (90 * Math.PI / 180)) * 120 * deltaTime);
+
+                if (!worldController.onCollision(nextPointA)) {
+                    player.position.z = nextPointA.z;
+                    player.position.x = nextPointA.x;
+                }
             }
 
             if (keyboard.pressed("s")) {
-                player.position.z = player.position.z + Math.sin(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime;
-                player.position.x = player.position.x - Math.cos(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime;
+                var nextPointS = new THREE.Vector3(
+                    player.position.x - Math.cos(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime,
+                    player.position.y,
+                    player.position.z + Math.sin(camera.rotation.y + (90 * Math.PI / 180)) * 120 * deltaTime);
+
+                if (!worldController.onCollision(nextPointS)) {
+                    player.position.z = nextPointS.z;
+                    player.position.x = nextPointS.x;
+                }
             }
 
             if (keyboard.pressed("d")) {
-                player.position.z = player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180) - (90 * Math.PI / 180)) * 120 * deltaTime;
-                player.position.x = player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180) - (90 * Math.PI / 180)) * 120 * deltaTime;
+                var nextPointD = new THREE.Vector3(
+                    player.position.x + Math.cos(camera.rotation.y + (90 * Math.PI / 180) - (90 * Math.PI / 180)) * 120 * deltaTime,
+                    player.position.y,
+                    player.position.z - Math.sin(camera.rotation.y + (90 * Math.PI / 180) - (90 * Math.PI / 180)) * 120 * deltaTime);
+
+                if (!worldController.onCollision(nextPointD)) {
+                    player.position.z = nextPointD.z;
+                    player.position.x = nextPointD.x;
+                }
             }
         };
 
