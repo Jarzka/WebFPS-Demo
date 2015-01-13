@@ -4,34 +4,45 @@ define(["libraries/THREEx.KeyboardState", "libraries/jquery-1.11.1"], function(T
 
     var inputControllerModule = function(worldController) {
         var keyboard;
-        var map;
         var worldController = worldController;
-
 
         function constructor() {
             initialize();
         }
 
         function initialize() {
-            map = worldController.getma
             keyboard = new THREEx.KeyboardState();
             $("canvas").click(requestPointerControl); // Request works only from event
         }
 
         function requestPointerControl() {
-            var canvas = $("canvas").get(0);
-            canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock;
-            canvas.requestPointerLock();
+            // Check if Pointerlock API is available
+            var isPointerlockSupported = 'pointerLockElement' in document
+                || 'mozPointerLockElement' in document
+                || 'webkitPointerLockElement' in document;
 
-            document.addEventListener('pointerlockchange', pointerLockStateChanged, false);
-            document.addEventListener('mozpointerlockchange', pointerLockStateChanged, false);
-            document.addEventListener('webkitpointerlockchange', pointerLockStateChanged, false);
+            if (isPointerlockSupported) {  // Request pointer lock
+                var canvas = $("canvas").get(0);
+                canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock;
+                canvas.requestPointerLock();
 
-            document.addEventListener("mousemove", handleMouseMovement, false);
+                document.addEventListener('pointerlockchange', pointerLockStateChanged, false);
+                document.addEventListener('mozpointerlockchange', pointerLockStateChanged, false);
+                document.addEventListener('webkitpointerlockchange', pointerLockStateChanged, false);
+            } else {
+                $(".pointerlock-not-supported").css("display", "block");
+            }
         }
 
         function pointerLockStateChanged(event) {
-            // TODO Check if request failed
+            var canvas = $("canvas").get(0);
+
+            if (document.pointerLockElement === canvas ||
+                document.mozPointerLockElement === canvas ||
+                document.webkitPointerLockElement === canvas) {
+                // Pointer was locked successfully, enable mousemove listener
+                document.addEventListener("mousemove", handleMouseMovement, false);
+            }
         }
 
         function handleMouseMovement(event) {
@@ -47,7 +58,6 @@ define(["libraries/THREEx.KeyboardState", "libraries/jquery-1.11.1"], function(T
             // TODO Implement collision detection
             var player = worldController.getPlayer();
             var camera = worldController.getCamera();
-
 
             // TODO Get speed from player
             // TODO Use vectors here

@@ -16,6 +16,20 @@ html, body {
 .fps {
     position: absolute;
     color: white;
+    right: 10px;
+    top: 10px;
+}
+
+.message {
+    position: absolute;
     left: 10px;
     top: 10px;
+}
+
+.error {
+    color: red;
+}
+
+.pointerlock-not-supported {
+    display: none;
 }
