@@ -71,9 +71,6 @@ define(["map", "player"], function(Map, Player) {
             light.target.position.z = Map.getTileSize() * 5;
             light.castShadow = true;
             scene.add(light);
-
-            // Fog
-            //scene.fog = new THREE.FogExp2(0x9db3b5, 0.002); // TODO Hides skybox
         }
 
         function initializeWorld() {
